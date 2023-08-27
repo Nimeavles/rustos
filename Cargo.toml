@@ -4,14 +4,7 @@ version = "0.1.0"
 edition = "2018"
 authors = ["Pablo Rodríguez <prlf505@gmail.com>"]
 
-
-# Disable Rust Unwind
-[profile.dev]
-panic = "abort"
-# Disable Rust Unwind
-[profile.release]
-panic = "abort"
-
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+bootloader = "0.9.23"

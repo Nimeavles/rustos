@@ -6,6 +6,7 @@
 #![feature(abi_x86_interrupt)]
 
 use core::panic::PanicInfo;
+pub mod gdt;
 pub mod interrupt;
 pub mod serial;
 pub mod vga_buffer;
@@ -26,9 +27,10 @@ pub fn exit_qemu(exit_code: QemuExitCode) {
     }
 }
 
-// Init CPU idt
+// Init CPU idt and gdt
 pub fn init() {
     interrupt::init_idt();
+    gdt::init();
 }
 
 pub trait Testable {

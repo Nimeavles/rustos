@@ -5,7 +5,7 @@
 #![reexport_test_harness_main = "test_main"]
 
 use core::panic::PanicInfo;
-use rustos::println;
+use rustos::{print, println};
 
 #[no_mangle]
 pub extern "C" fn _start() -> ! {
@@ -13,16 +13,16 @@ pub extern "C" fn _start() -> ! {
 
     rustos::init();
 
-    fn stack_overflow() {
-        stack_overflow();
-    }
+    println!("It did not crash");
 
-    stack_overflow();
+    for _ in 0..10000 {
+        print!("-");
+    }
 
     #[cfg(test)]
     test_main();
 
-    loop {}
+    rustos::hlt_loop();
 }
 
 /// This function is called on panic.
@@ -30,7 +30,7 @@ pub extern "C" fn _start() -> ! {
 #[panic_handler]
 fn panic(info: &PanicInfo) -> ! {
     println!("{}", info);
-    loop {}
+    rustos::hlt_loop()
 }
 
 #[cfg(test)]
